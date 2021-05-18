@@ -1,0 +1,18 @@
+.map-box {
+    position: relative;
+    height  : 100%;
+    width   : 100%;
+
+    .map {
+        height: 100%;
+        width : 100%;
+    }
+
+    .recolor-btn {
+        position: absolute;
+        top     : 10px;
+        cursor: pointer;
+        padding : 10px;
+        left: calc((100% - 200px)/2);
+    }
+}

@@ -1,0 +1,83 @@
+.menu {
+    position: relative;
+    height  : 100%;
+
+    .actions {
+        position: absolute;
+        top  : 0;
+        width   : 100%;
+        button {
+            color           : #fff;
+            height          : 40px;
+            border          : none;
+            background-color: #5f9ea0;
+            width           : 50%;
+            font-size       : 14px;
+            cursor: pointer;
+        }
+        button:first-child{
+            border-right:1px solid #eee;
+        }
+        button:hover {
+            background-color: #7dcdcf;
+        }
+    }
+    .random-locations {
+        position  : absolute;
+        bottom       : 0;
+        width     : 100%;
+        text-align: center;
+        height    : calc(100% - 40px);
+        .body {
+            position  : absolute;
+            width     : 100%;
+            height    : calc(100% - 40px);
+            overflow-y: auto;
+            .item:hover {
+                background: #eee;
+                cursor    : pointer;
+            }
+        }
+
+        .head,
+        .item {
+            text-align     : center;
+            display        : flex;
+            justify-content: space-around;
+            align-items    : center;
+            height         : 30px;
+            border-bottom  : 1px solid #eee;
+
+            span {
+                width: 33%;
+            }
+
+            span:first-child {
+                width: 50px;
+            }
+        }
+
+        .head {
+            height: 40px;
+        }
+
+        // .item.checked {
+        //     // border: 1px solid red;
+        //     background: #ccc;
+        // }
+    }
+
+    .tip {
+        width     : 100%;
+        font-size : 14px;
+        color     : #666;
+        padding   : 20px 0;
+        text-align: center;
+        margin    : 0;
+    }
+
+}
+
+// .col-4{
+//     width: calc(100%/12*4);
+// }

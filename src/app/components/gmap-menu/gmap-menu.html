@@ -1,0 +1,28 @@
+<div class="menu">
+    <div class="actions">
+        <button (click)="handleCreateRandomLocations()">
+            随机创建
+        </button>
+        <button (click)="handleInputShapeFile()">
+            导入ShapeFile
+        </button>
+    </div>
+    <div class="random-locations">
+        <div class="head">
+            <span class="col-4">id</span>
+            <span>纬度</span>
+            <span>经度</span>
+        </div>
+        <div class="body" #dataList>
+            <div class="item" *ngFor="let item of locations" (click)="handleSetCenter(item)">
+                <span>{{item.id}}</span>
+                <span>{{item.lat}}</span>
+                <span>{{item.lng}}</span>
+            </div>
+            <p *ngIf="!locations||locations.length<=0" class="tip">暂无数据~</p>
+            <p class="tip" *ngIf="locations&&locations.length>=maxLocationsLength">
+                无更多数据~
+            </p>
+        </div>
+    </div>
+</div>

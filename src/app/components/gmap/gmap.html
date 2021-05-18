@@ -1,0 +1,6 @@
+<div class="map-box">
+    <div class="map" #map (mousedown)="handleCreatePolygon($event)">
+    </div>
+    <button *ngIf="polygon" class="recolor-btn" (click)="handleChangePolygonColor()">修改Polygon颜色</button>
+</div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
