@@ -1,4 +1,4 @@
-# Gmaps
+# A shape file parse demo
 
 Demo of JS parsing local shape files and displaying them on Google Map.
 
