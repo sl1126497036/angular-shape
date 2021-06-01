@@ -1,25 +1,30 @@
 import { MessageService } from './../../providers/message-service';
-import { ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from "@angular/core";
+import { ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { Component } from "@angular/core";
-import { MessageType } from 'src/global/enums';
-import { locations } from 'src/global/location';
+import { MessageType } from 'src/app/global/enums';
+import { locations } from 'src/app/global/location';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'gmap-menu',
     templateUrl: './gmap-menu.html',
     styleUrls: ['./gmap-menu.scss']
 })
-export class GmapMenuComponent implements OnInit, OnChanges {
+export class GmapMenuComponent implements OnInit, OnChanges,OnDestroy {
     locations: any = locations;
     checkedLocations: any = [];
     maxLocationsLength = 5000;
     @ViewChild("dataList")
     dataListDiv: ElementRef;
+    observer$: Subscription;
     constructor(private msService: MessageService) {
 
     }
+    ngOnDestroy(): void {
+        this.observer$.unsubscribe();
+    }
     ngOnInit(): void {
-        this.msService.observable.subscribe(msg => {
+        this.observer$ =this.msService.observable.subscribe(msg => {
             const { type } = msg;
             if (type === MessageType.CLEAR_LOCATIONS) {
                 this.checkedLocations = [];

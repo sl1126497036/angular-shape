@@ -1,0 +1,1 @@
+export const locations=[];//全局变量节省内存开支

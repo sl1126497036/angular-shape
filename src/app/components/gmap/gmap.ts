@@ -1,25 +1,30 @@
 /// <reference types="google.maps" />
 import { MessageService } from './../../providers/message-service';
-import { ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from "@angular/core";
+import { ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { Component } from "@angular/core";
-import { MessageType } from 'src/global/enums';
+import { MessageType } from 'src/app/global/enums';
 import * as shp from 'shpjs';
-import { locations } from 'src/global/location';
+import { locations } from 'src/app/global/location';
 import MarkerClusterer from '@googlemaps/markerclustererplus';
-
+import { filter } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 @Component({
     selector: 'gmap',
     templateUrl: './gmap.html',
     styleUrls: ['./gmap.scss']
 })
-export class GmapComponent implements OnInit, OnChanges {
+export class GmapComponent implements OnInit, OnChanges,OnDestroy {
     polygon: any = null;
     markerClusterer:any=null;
     loading = false;
     gmap: any;
+    observer$: Subscription;
     @ViewChild("map")
     mapDiv: ElementRef;
     constructor(private msService: MessageService) {
+    }
+    ngOnDestroy(): void {
+        this.observer$.unsubscribe();
     }
     ngOnInit(): void {
         // this.getLocation();//
@@ -29,7 +34,7 @@ export class GmapComponent implements OnInit, OnChanges {
     }
     ngAfterViewInit() {
         this.initMap();
-        this.msService.observable.subscribe(msg => {
+        this.observer$=this.msService.observable.subscribe(msg => {
             const { type, data } = msg;
             switch (type) {
                 case MessageType.ADD_MARKERS:
@@ -49,6 +54,17 @@ export class GmapComponent implements OnInit, OnChanges {
                     break;
             }
         });
+        // const { observable }=this.msService;
+        // observable.pipe(filter(msg => msg.type === MessageType.ADD_MARKERS)).subscribe( msg => { this.addMarkers();});
+        // observable.pipe(filter(msg => msg.type === MessageType.RESET_MAP)).subscribe(msg => { this.initMap();});
+        // observable.pipe(filter(msg => msg.type === MessageType.USE_SHAPE_FILE)).subscribe(msg => {
+        //     this.initMap();
+        //     this.analysisShapeFile(msg.data);});
+        // observable.pipe(filter(msg => msg.type === MessageType.SET_CENTER)).subscribe(msg=>{
+        //     const { lat, lng } = msg.data;
+        //     this.gmap.setCenter({ lat, lng });//将标记点作为新的中心
+        // });
+
     }
     // getLocation(){//获取当前位置
     //     navigator.geolocation.getCurrentPosition((position)=>{
