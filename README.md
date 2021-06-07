@@ -2,7 +2,7 @@
 
 Demo of JS parsing local shape files and displaying them on Google Map.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.12.
 
 ## Development server
 
